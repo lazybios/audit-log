@@ -11,7 +11,7 @@ module AuditLog
       @logs = @logs.where("action = ?", params[:action_type]) if params[:action_type].present?
       @logs = @logs.where("created_at >= ?", Time.parse(params[:start_time])) if params[:start_time].present?
       @logs = @logs.where("created_at < ?", Time.parse(params[:end_time])) if params[:end_time].present?
-      @logs = @logs.page(params[:page]).per(15)
+      @logs = @logs.paginate(page: params[:page], per_page: 20)
     end
 
     def show; end
